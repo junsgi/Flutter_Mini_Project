@@ -1,0 +1,105 @@
+Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        margin: EdgeInsets.all(7),
+        width: 500,
+        height: 600,
+        child: ListView.builder(
+            itemCount: how.length,
+            itemBuilder: (c, index) {
+              if (index == 0) {
+                return ListTile(
+                  title: SizedBox(
+                    child: Column(
+                      children: [
+                        Text(how[index], style: TextStyle(fontSize: 25),),
+                        TextField(onChanged: (context) {
+                          setTitle(context);
+                        })
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (index < how.length - 1) {
+                return ListTile(
+                  title: SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(how[index], style: TextStyle(fontSize: 20),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                                flex: 1,
+                                child: TextButton(
+                                    onPressed: () {
+                                      setHowDay('1');
+                                    },
+                                    child: Icon(
+                                      Icons.sentiment_satisfied_alt,
+                                      size: 70,
+                                      color: Colors.greenAccent,
+                                    ))),
+                            Flexible(
+                                flex: 1,
+                                child: TextButton(
+                                    onPressed: () {
+                                      setHowDay('2');
+                                    },
+                                    child: Icon(
+                                      Icons.sentiment_neutral,
+                                      size: 70,
+                                      color: Colors.orangeAccent,
+                                    ))),
+                            Flexible(
+                                flex: 1,
+                                child: TextButton(
+                                  onPressed: () {
+                                    setHowDay('3');
+                                  },
+                                  child: Icon(Icons.sentiment_very_dissatisfied,
+                                      size: 70, color: Colors.redAccent),
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return ListTile(
+                    title: SizedBox(
+                      child: Column(
+                        children: [
+                          Text(how[index], style: TextStyle(fontSize: 25),),
+                          TextField(
+                            onChanged: (context) {
+                              setComment(context);
+                            },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    widget.setMyData(
+                                        getTitle(),
+                                        getHowDay(),
+                                        getHowSleep(),
+                                        getHowMeal(),
+                                        getComment(),
+                                        DateTime.now().toString()
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("확인"))
+                            ],
+                          )
+                        ],
+                      ),
+                    ));
+              }
+            }),
+      ),
